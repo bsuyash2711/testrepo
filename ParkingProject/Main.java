@@ -18,16 +18,29 @@ public class Main {
                     System.out.print("Enter vehicle registration number: ");
                     String regNumber = scanner.nextLine();
 
-                    System.out.print("Enter vehicle type (CAR, BUS, MOTORCYCLE): ");
-                    String typeInput = scanner.nextLine().toUpperCase();
+                    System.out.println("Select vehicle type:");
+System.out.println("1. CAR");
+System.out.println("2. BUS");
+System.out.println("3. MOTORCYCLE");
+System.out.print("Enter your choice (1-3): ");
+String typeChoice = scanner.nextLine();
 
-                    VehicleType type;
-                    try {
-                        type = VehicleType.valueOf(typeInput);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid vehicle type entered.");
-                        break;
-                    }
+VehicleType type;
+switch (typeChoice) {
+    case "1":
+        type = VehicleType.CAR;
+        break;
+    case "2":
+        type = VehicleType.BUS;
+        break;
+    case "3":
+        type = VehicleType.MOTORCYCLE;
+        break;
+    default:
+        System.out.println("Invalid choice.");
+        continue; // skip to next loop iteration
+}
+
 
                     Vehicle vehicle = new Vehicle(regNumber, type);
                     manager.checkIn(vehicle);
