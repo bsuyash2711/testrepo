@@ -1,2 +1,0 @@
-
-print("Inside child branch")
