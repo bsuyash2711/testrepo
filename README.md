@@ -10,9 +10,9 @@ A Java-based console application that simulates a multi-floor parking lot with d
 - Users can check in a vehicle by entering its registration number and selecting its type (Car, Bus, Motorcycle).
 - The system allocates a parking spot based on vehicle type and availability.
 - Each vehicle type is assigned to a specific floor:
-  - **Ground Floor**: Buses
-  - **First Floor**: Cars
-  - **Second Floor**: Motorcycles
+  - **Ground Floor**: Buses (5 spots)
+  - **First Floor**: Cars (5 spots)
+  - **Second Floor**: Motorcycles (5 spots)
 
 ### 2. **Vehicle Check-Out**
 - Users can check out a vehicle by entering its registration number and parking duration (in minutes).
