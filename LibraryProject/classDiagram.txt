@@ -1,0 +1,27 @@
+Class Diagram:
+
++------------------+       +------------------+       +------------------+
+|      Book        |<----->| LibraryInventory |<----->| LendingService   |
++------------------+       +------------------+       +------------------+
+| - title          |       | - books: Map     |       | - inventory      |
+| - author         |       | +addBook()       |       | +checkoutBook()  |
+| - isbn           |       | +removeBook()    |       | +returnBook()    |
+| - publicationYear|       | +searchByTitle() |       +------------------+
+| - isAvailable    |       | +searchByAuthor()|
++------------------+       +------------------+
+
++------------------+       +------------------+       +------------------+
+|     Patron       |       |   BookFactory    |       | InventoryObserver|
++------------------+       +------------------+       +------------------+
+| - name           |       | +createBook()    |       | +update()        |
+| - id             |       +------------------+       +------------------+
+| - borrowedBooks  |
++------------------+
+
++------------------+       +------------------+
+| InventoryNotifier|<----->| InventoryLogger  |
++------------------+       +------------------+
+| - observers      |       | +update()        |
+| +addObserver()   |       +------------------+
+| +notifyObservers()|
++------------------+
