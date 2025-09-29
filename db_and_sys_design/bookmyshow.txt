@@ -1,0 +1,105 @@
+P1 - As part of this assignment, we need to list down all the entities, their attributes and the table structures for the scenario mentioned in the previous slide. 
+You also need to write the SQL queries required to create these tables along with few sample entries. Ensure the tables follow 1NF, 2NF, 3NF and BCNF rules.
+======================================================================================================================
+-- Create Theatre Table
+CREATE TABLE Theatre (
+    theatre_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL
+);
+
+-- Create Movie Table
+CREATE TABLE Movie (
+    movie_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    language VARCHAR(50),
+    genre VARCHAR(50),
+    duration_minutes INT
+);
+
+-- Create MovieShow Table 
+CREATE TABLE MovieShow (
+    show_id INT PRIMARY KEY AUTO_INCREMENT,
+    movie_id INT,
+    theatre_id INT,
+    show_date DATE,
+    show_time TIME,
+    FOREIGN KEY (movie_id) REFERENCES Movie(movie_id),
+    FOREIGN KEY (theatre_id) REFERENCES Theatre(theatre_id)
+);
+
+
+
+-- Insert Sample Theatres 
+INSERT INTO Theatre (name, location) VALUES
+('City Pride Kothrud', 'Pune'),
+('INOX Bund Garden', 'Pune'),
+('PVR Phoenix Marketcity', 'Pune');
+
+-- Insert Sample Movies
+INSERT INTO Movie (title, language, genre, duration_minutes) VALUES
+('Fighter', 'Hindi', 'Action', 145),
+('Pushpa 2', 'Telugu', 'Drama', 160),
+('Deadpool 3', 'English', 'Comedy', 130);
+
+-- Insert Sample Shows 
+INSERT INTO MovieShow (movie_id, theatre_id, show_date, show_time) VALUES
+(1, 1, '2025-09-30', '18:00:00'), 
+(2, 1, '2025-09-30', '21:00:00'), 
+(3, 2, '2025-09-30', '19:30:00'), 
+(1, 3, '2025-09-30', '20:00:00'); 
+
+
+select * from Theatre;
+
++------------+------------------------+----------+
+| theatre_id | name                   | location |
++------------+------------------------+----------+
+|          1 | City Pride Kothrud     | Pune     |
+|          2 | INOX Bund Garden       | Pune     |
+|          3 | PVR Phoenix Marketcity | Pune     |
++------------+------------------------+----------+
+
+select * from Movie ;
+
++----------+------------+----------+--------+------------------+
+| movie_id | title      | language | genre  | duration_minutes |
++----------+------------+----------+--------+------------------+
+|        1 | Fighter    | Hindi    | Action |              145 |
+|        2 | Pushpa 2   | Telugu   | Drama  |              160 |
+|        3 | Deadpool 3 | English  | Comedy |              130 |
++----------+------------+----------+--------+------------------+
+
+select * from MovieShow ;
+
++---------+----------+------------+------------+-----------+
+| show_id | movie_id | theatre_id | show_date  | show_time |
++---------+----------+------------+------------+-----------+
+|       1 |        1 |          1 | 2025-09-30 | 18:00:00  |
+|       2 |        2 |          1 | 2025-09-30 | 21:00:00  |
+|       3 |        3 |          2 | 2025-09-30 | 19:30:00  |
+|       4 |        1 |          3 | 2025-09-30 | 20:00:00  |
++---------+----------+------------+------------+-----------+
+=====================================================================================================================
+
+P2 - Write a query to list down all the shows on a given date at a given theatre along with their respective show timings.
+
+SELECT
+    Movie.title,
+    MovieShow.show_time
+FROM 
+    MovieShow,
+    Movie,
+    Theatre
+WHERE 
+    MovieShow.movie_id = Movie.movie_id
+    AND MovieShow.theatre_id = Theatre.theatre_id
+    AND MovieShow.show_date = '2025-09-30'
+    AND Theatre.name = 'City Pride Kothrud';
+
++----------+-----------+
+| title    | show_time |
++----------+-----------+
+| Fighter  | 18:00:00  |
+| Pushpa 2 | 21:00:00  |
++----------+-----------+
